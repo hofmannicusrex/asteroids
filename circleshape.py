@@ -1,4 +1,5 @@
 import pygame
+from typing import Self
 
 
 # Base class for game objects
@@ -23,3 +24,19 @@ class CircleShape(pygame.sprite.Sprite):
     def update(self, dt: float) -> None:
         # must override
         pass
+
+    # Consider changing the type hint for other if another shape besides "circles"
+    # are implemented in the future! Note that the collision logic would likely
+    # also need altered in that scenario.
+    def collides_with(self, other: Self) -> bool:
+        # Calculate the distance between the "center" positions of both circle objects.
+        distance_between_position_vectors: float = self.position.distance_to(other.position)
+        # Retrieve the radius of both circle objects.
+        self_radius: float = self.radius
+        other_radius: float = other.radius
+
+        # If the distance between each object's positions is less than the sum
+        # of their radii, then we know the circles are colliding!
+        if distance_between_position_vectors <= (self_radius + other_radius):
+            return True
+        return False

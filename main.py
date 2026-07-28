@@ -1,7 +1,8 @@
 import pygame
+import sys
 #import player  # DOES NOT WORK for some reason... online docs say otherwise, so.
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
-from logger import log_state
+from logger import log_state, log_event
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
@@ -58,6 +59,14 @@ def main():
 
         # Update the rotation of the objects in the updatable group.
         updatable.update(dt)
+
+        # Iterate over all the objects in the asteroids group.
+        for asteroid in asteroids:
+            # If any of the asteroids collide with the player...
+            if asteroid.collides_with(player):
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
 
         # Iterate over all objects in the drawable group and draw them individually.
         for object in drawable:

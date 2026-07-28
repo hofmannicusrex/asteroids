@@ -11,3 +11,4 @@ wheels/
 
 # Debugging/logging files
 game_state.jsonl
+game_events.jsonl

@@ -24,15 +24,15 @@ def main():
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
 
-    # Create two separate groups to store...
+    # Create two separate groups to store "updatable" and "drawable" objects.
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-    #
+    # Create a group for the asteroid objects.
     asteroids = pygame.sprite.Group()
 
-    # Ensure the player is in both group prior to the game loop!
+    # Ensure the player is in these groups prior to the game loop!
     Player.containers = (updatable, drawable)
-    #
+    # Ensure the asteroid and asteroidfield objects are in the correct groups prior to the game loop!
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
 
@@ -56,16 +56,10 @@ def main():
         # Black background.
         screen.fill("black")
 
-        # Update the player's rotation.
-        #player.update(dt)
-
         # Update the rotation of the objects in the updatable group.
         updatable.update(dt)
 
-        # Re-render the player on the screen.
-        #player.draw(screen)
-
-        # Iterate over all objects in drawable and draw them individually.
+        # Iterate over all objects in the drawable group and draw them individually.
         for object in drawable:
             object.draw(screen)
 
@@ -73,7 +67,7 @@ def main():
         pygame.display.flip()
 
         # Update the game clock (60 FPS).
-        # Calculate the delta time.
+        # Calculate the delta time. The .tick() function returns millesconds, so must convert to seconds.
         dt = game_clock.tick(60) / 1000
 
         #print(dt)  # Debugging.

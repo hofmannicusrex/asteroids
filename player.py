@@ -1,7 +1,8 @@
 import pygame
 #import circleshape  # DOES NOT WORK for some reason... online docs say otherwise, so.
-from constants import PLAYER_RADIUS, LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED
+from constants import PLAYER_RADIUS, LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED
 from circleshape import CircleShape
+from shot import Shot
 
 
 class Player(CircleShape):
@@ -45,6 +46,10 @@ class Player(CircleShape):
         if keys[pygame.K_d]:
             self.rotate(dt)
 
+        # Player shooting.
+        if keys[pygame.K_SPACE]:
+            self.shoot()
+
     def move(self, dt: float) -> None:
         # Start with a unit vector pointing straight down from (0, 0) to (0, 1).
         unit_vector = pygame.Vector2(0, 1)
@@ -54,3 +59,15 @@ class Player(CircleShape):
         rotated_with_speed_vector = rotated_vector * PLAYER_SPEED * dt
         # Add the vector to the player's position to move them.
         self.position += rotated_with_speed_vector
+
+    def shoot(self) -> None:
+        # Start with a downward direction vector.
+        initial_downward_vector = pygame.Vector2(0, 1)
+
+        # Create a new shot at the player's current position.
+        new_player_shot = Shot(self.position.x, self.position.y)
+
+        # Rotate the vector in the direction the player is facing and scale up
+        # the speed of the shot to make it move faster. Assign the result to the
+        # velocity vector of the Shot object that was just created.
+        new_player_shot.velocity = initial_downward_vector.rotate(self.rotation) * PLAYER_SHOOT_SPEED

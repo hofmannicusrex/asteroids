@@ -6,6 +6,7 @@ from logger import log_state, log_event
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 
 def main():
@@ -30,12 +31,16 @@ def main():
     drawable = pygame.sprite.Group()
     # Create a group for the asteroid objects.
     asteroids = pygame.sprite.Group()
+    # Create a group for the shot objects.
+    shots = pygame.sprite.Group()
 
     # Ensure the player is in these groups prior to the game loop!
     Player.containers = (updatable, drawable)
     # Ensure the asteroid and asteroidfield objects are in the correct groups prior to the game loop!
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
+    # Ensure the shot objects are in the correct groups prior to the game loop!
+    Shot.containers = (shots, updatable, drawable)
 
     # Instantiate our player character.
     player: Player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -59,6 +64,9 @@ def main():
 
         # Update the rotation of the objects in the updatable group.
         updatable.update(dt)
+
+        # Decrease the player's cooldown timer.
+        player.shot_cd_timer -= dt
 
         # Iterate over all the objects in the asteroids group.
         for asteroid in asteroids:

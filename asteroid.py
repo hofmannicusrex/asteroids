@@ -9,11 +9,8 @@ class Asteroid(CircleShape):
 
     def draw(self, screen: pygame.Surface) -> None:
         # Draw the circle for the asteroid.
-        # pygame.draw.circle(screen, "white", (self.x, self.y), self.radius, LINE_WIDTH)
-        # pygame.draw.circle(screen, "white", super().position, self.radius, LINE_WIDTH)
         pygame.draw.circle(screen, "white", self.position, self.radius, LINE_WIDTH)
 
     def update(self, dt: float) -> None:
-        # self.x += (super().velocity * dt)
-        # self.y += (super().velocity * dt)
+        # This formula will ensure the asteroid moves in a straight line.
         self.position += (self.velocity * dt)

@@ -65,6 +65,9 @@ def main():
         # Update the rotation of the objects in the updatable group.
         updatable.update(dt)
 
+        # Decrease the player's cooldown timer.
+        player.shot_cd_timer -= dt
+
         # Iterate over all the objects in the asteroids group.
         for asteroid in asteroids:
             # If any of the asteroids collide with the player...

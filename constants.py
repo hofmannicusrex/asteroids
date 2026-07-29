@@ -10,3 +10,4 @@ ASTEROID_SPAWN_RATE_SECONDS = 0.8
 ASTEROID_MAX_RADIUS = ASTEROID_MIN_RADIUS * ASTEROID_KINDS
 SHOT_RADIUS = 5  # The radius of the "shots" spawned from the player.
 PLAYER_SHOOT_SPEED = 500  # The speed at which the player can shoot.
+PLAYER_SHOOT_COOLDOWN_SECONDS = 0.3

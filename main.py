@@ -76,6 +76,14 @@ def main():
                 print("Game over!")
                 sys.exit()
 
+            # Iterate over all the objects in the shots group.
+            for shot in shots:
+                # If any shots collide with the current asteroid...
+                if shot.collides_with(asteroid):
+                    log_event("asteroid_shot")
+                    shot.kill()  # The .kill() method removes the sprites from all groups.
+                    asteroid.split()
+
         # Iterate over all objects in the drawable group and draw them individually.
         for object in drawable:
             object.draw(screen)
